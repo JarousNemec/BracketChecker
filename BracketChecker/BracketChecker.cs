@@ -34,16 +34,27 @@ namespace BracketChecker
                 var foundClosing = brackets.FirstOrDefault(x => x.Closing == c);
                 if (foundClosing != null)
                 {
-                    if (foundBrackets.Pop() != foundClosing.Opening)
+                    if (foundBrackets.Count > 0)
+                    {
+                        if (foundBrackets.Peek() != foundClosing.Opening)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write(c + " ");
+                            Console.ResetColor();
+                            res = false;
+                        }
+                        else
+                        {
+                            Console.Write(c + " ");
+                            foundBrackets.Pop();
+                        }
+                    }
+                    else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write(c + " ");
                         Console.ResetColor();
                         res = false;
-                    }
-                    else
-                    {
-                        Console.Write(c + " ");
                     }
                 }
             }
